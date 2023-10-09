@@ -1,4 +1,4 @@
-from math import pi, sqrt
+from math import pi, sqrt, sin
 
 class Rettangolo:
     def __init__(self, base, altezza):
@@ -43,7 +43,7 @@ class Cerchio:
 
 class Personalizzato:
     def __init__(self):
-        self.perimetro      = 0
+        self.perimetro  = 0
 
     def calcola_distanza(self, primo: tuple, secondo: tuple):
         return sqrt((primo[0] - secondo[0]) ** 2 + (primo[1] - secondo[1]) ** 2)
@@ -57,7 +57,7 @@ class Personalizzato:
         ultime_coord    = None
 
         for v in ver:
-            if (v == 'a'):
+            if (v == ' a' or v == 'a'):
                 aperto  = True
                 break
 
@@ -76,6 +76,16 @@ class Personalizzato:
 
         print(self.perimetro)
 
+class Regolare:
+    def __init__(self, numero_lati, raggio):
+        self.numero_lati    = numero_lati
+        self.raggio         = raggio
+
+    def calcola_perimetro(self):
+        # 2*pi corrisponde all'angolo giro
+        base_triangolo  = 2 * self.raggio * sin(pi/self.numero_lati)
+        return self.numero_lati * base_triangolo
+
             
 class Main:
     def __init__(self):
@@ -85,6 +95,7 @@ class Main:
         print("2 - Rettangolo")
         print("3 - Cerchio")
         print("4 - Personalizzato")
+        print("5 - Poligono regolare")
         print("q - Esci")
 
         scelta          = input("Inserisci il numero corrispondente alla figura geometrica di cui vuoi calcolare il perimetro. ")
@@ -110,6 +121,12 @@ class Main:
         elif (scelta == 4):
             personalizzato  = Personalizzato()
             personalizzato.loop_personalizzato()
+        elif (scelta == 5):
+            inp         = input("Inserisci <numero lati poligono regolare> <raggio circoscritto>: ")
+            numero_lati = int(inp.split()[0])
+            raggio      = float(inp.split()[1])
+            regolare    = Regolare(numero_lati, raggio)
+            print(f"Il perimetro di un {numero_lati}-agono regolare è {regolare.calcola_perimetro()}")
         else:
             self.prosegui   = False
 
